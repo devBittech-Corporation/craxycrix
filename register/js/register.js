@@ -37,31 +37,33 @@ $(document).ready(function(){
     }else{
       if(comemail != '' && comname != '' && comnum != '' && compasss != '' && chk == 1){
         event.preventDefault();
-
-    //		$(".loader").css("display","");
+          $("#fmregister :input").prop("disabled",true);
+			    $('.spinner-grow').show();
           $.ajax({
             url:'php/register_code.php',
             type:'post',
-            data:{comemail:comemail,comname:comname,comnum:comnum,compasss:compasss},
+            data:{comemail:comemail,comname:comname,comnum:comnum,compasss:compasss,chk:chk},
             success:function(response){
              //$('#results').html(response);
               if(response	== 1){
-                        swal("Congratulations you successfully Created your Account. Hold you would receive a Verification Number", {
-                              icon: "success",
-                              button: true,
-                              dangerMode: true,
-                            });
-                //window.location.href = "../pickadmin/index.php";
+                swal("Congratulations you successfully Created your Account. Hold you would receive a Verification Number", {
+                      icon: "success",
+                      button: true,
+                    });
+                    setInterval(function(){
+                     window.location.href = "./confirmcode.html";
+                   }, 5000);
+
               }else{
-                toastr.error('Invalid Username or Password');
+                toastr.error('Ooops Something Went wrong. Please Check your info, If not Send a support Ticket');
               }
             }
           });
-      /*	setTimeout(function(){
+      	setTimeout(function(){
           $("#fmregister :input").prop("disabled",false);
-          $(".loader").css("display","none");
-        },2000);
-          */
+          $('.spinner-grow').hide();
+        },3000);
+
       }else{
         event.preventDefault();
         swal({

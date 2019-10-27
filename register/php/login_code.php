@@ -7,7 +7,7 @@ $crud = new Crud();
 if (isset($_POST['email']) && isset($_POST['password'])) {
   // Now call set info
   $username = preg_replace("#[^0-9a-zA-z@. ]#","",$_POST['email']);
-  $password = $_POST['password'];
+  $password = md5($_POST['password']);
 
   if (!empty($username) && !empty($password)) {
     // send data
@@ -27,7 +27,14 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
   	    setcookie("_super",$username, time()+ (80 * 30), "/");
         setcookie("_role",$role, time()+ (80 * 30), "/");
         echo $result['response'];
-      }else {
+      }elseif ($role == 'company') {
+        // code...
+        $_SESSION['_role'] = $role;
+        $_SESSION['_com'] = $username;
+  	    setcookie("_com",$username, time()+ (80 * 30), "/");
+        setcookie("_role",$role, time()+ (80 * 30), "/");
+        echo 2;
+      }else{
         // code...
         echo "Null";
       }

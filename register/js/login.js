@@ -15,6 +15,8 @@ $(document).ready(function(){
            //$('#results').html(response);
 						if(response	== 1){
 							window.location.href = "../pickadmin/index.php";
+						}else if (response == '2') {
+							window.location.href = "../pickcompany/index.php";
 						}else{
 							toastr.error('Invalid Username or Password');
 						}
